@@ -1,3 +1,6 @@
 bin/* linguist-generated=true
-ext/* linguist-detectable=true
 configure.ac linguist-generated=true
+extconf.rb linguist-generated=true
+Gemfile linguist-generated=true
+Gemfile.lock linguist-generated=true
+Rakefile linguist-generated=true
