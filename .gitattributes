@@ -1,2 +1,3 @@
 bin/* linguist-generated=true
+ext/* linguist-detectable=true
 configure.ac linguist-generated=true
