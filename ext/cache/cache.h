@@ -19,6 +19,8 @@ VALUE method_read(VALUE self);
 
 VALUE method_stale(VALUE self, VALUE dur);
 
+VALUE method_purge(VALUE self);
+
 char* read_timecode();
 
 long get_timecode();

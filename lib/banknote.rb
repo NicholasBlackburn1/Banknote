@@ -1,7 +1,8 @@
 require "banknote/version"
 require "banknote/currency"
-require "cache/cache"
+require "banknote/cache"
 include Cache
+
 module Banknote
-  # Your code goes here...
+
 end

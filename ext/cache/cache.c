@@ -7,6 +7,8 @@ void Init_cache() {
 	rb_define_method(Cache, "write", method_write, 1);
 	rb_define_method(Cache, "read", method_read, 0);
 	rb_define_method(Cache, "stale", method_stale, 1);
+	rb_define_method(Cache, "purge", method_purge, 0);
+
 }
 
 // Returns a pointer to the cache file
@@ -78,6 +80,16 @@ VALUE method_stale(VALUE self, VALUE dur) {
 	} else {
 		return Qfalse;
 	}
+}
+
+VALUE method_purge(VALUE self) {
+	FILE* cache = open_cache("w");
+	if (cache == NULL) {
+		rb_raise(rb_eRuntimeError, "Error code %d", FILE_OPEN_ERROR);
+		return INT2NUM(-1);
+	}
+	fclose(cache);
+	return INT2NUM(0);
 }
 
 char* read_timecode() {

@@ -23,4 +23,22 @@ RSpec.describe Banknote do
     expect(Cache.write("READ")).to be 0
     expect(Cache.read().slice(/READ/)).to eq("READ")
   end
+
+  it "clears the cache" do
+    expect(Cache.purge()).to be 0
+    expect(Cache.read()).to eq("")
+  end
+
+  it "reads json data" do
+    expect(Cache.write('{"test": "data"}')).to be 0
+    expect(Cache.rate("test")).to eq("data")
+  end
+
+  it "knows when the cache is empty" do
+    expect(Cache.rate("not there")).to be nil
+  end
+
+  after :all do
+    Cache.purge()
+  end
 end
