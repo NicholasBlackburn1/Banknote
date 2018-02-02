@@ -1,2 +1,2 @@
-bin/ linguist-generated=true
+bin/* linguist-generated=true
 configure.ac linguist-generated=true
