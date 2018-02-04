@@ -11,6 +11,7 @@
 
 #define MAX_KEEP_SECONDS 1
 
+
 void Init_cache();
 
 VALUE method_write(VALUE self, VALUE str);

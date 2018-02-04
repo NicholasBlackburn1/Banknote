@@ -4,7 +4,7 @@ require 'rake/extensiontask'
 require 'yard'
 
 RSpec::Core::RakeTask.new(:spec) do
-  %x{rake compile}
+  system("rake compile")
 end
 
 Rake::ExtensionTask.new "cache" do |ext|

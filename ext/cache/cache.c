@@ -122,6 +122,12 @@ VALUE method_purge(VALUE self) {
 		rb_raise(rb_eRuntimeError, "Error code %d", FILE_OPEN_ERROR);
 		return INT2NUM(-1);
 	}
+	long timecode = get_timecode();
+	int tcwrite = fprintf(cache, "<%ju>\n{}", timecode);
+	if (tcwrite < 0) {
+		rb_raise(rb_eRuntimeError, "Error code %d", TIMECODE_ERROR);
+		return INT2NUM(-1);
+	}
 	fclose(cache);
 	return INT2NUM(0);
 }
