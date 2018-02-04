@@ -1,12 +1,5 @@
 RSpec.describe Banknote do
 
-  it "checks timecodes" do
-    expect(Cache.write("DATA")).to be 0
-    puts("Testing timecodes...")
-    sleep(2)
-    expect(Cache.stale(1)).to be true
-  end
-
   it "has a version number" do
     expect(Banknote::VERSION).not_to be nil
   end
@@ -32,6 +25,13 @@ RSpec.describe Banknote do
   it "reads json data" do
     expect(Cache.write('{"test": "data"}')).to be 0
     expect(Cache.rate("test")).to eq("data")
+  end
+
+  it "checks timecodes" do
+    expect(Cache.write("DATA")).to be 0
+    puts("  Testing timecodes...")
+    sleep(2)
+    expect(Cache.stale(1)).to be true
   end
 
   it "knows when the cache is empty" do

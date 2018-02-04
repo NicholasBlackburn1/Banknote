@@ -1,14 +1,47 @@
 #include "cache.h"
-
 VALUE Cache = Qnil;
 
+/*
+ * Document-module: Cache
+ *
+ * Read and write to the cache.
+ */
 void Init_cache() {
 	Cache = rb_define_module("Cache");
+	/*
+	* @overload write(str)
+	* 	Write data to the cache.
+	* 	@note On failure, raises a ruby exception.
+	*
+	* 	@param str [String] The data to write.
+	*
+	* 	@return [Fixnum] 0 on success, negative on error.
+	*/
 	rb_define_method(Cache, "write", method_write, 1);
+	/*
+	* Read all the data from the cache.
+	* @note On failure, raises a ruby exception.
+	*
+	* @return [String] The cache data.
+	*/
 	rb_define_method(Cache, "read", method_read, 0);
+	/*
+	* @overload stale(dur)
+	* 	Determine if the cache has existed longer than a specified time.
+	* 	@note On failure, raises a ruby exception.
+	*
+	* 	@param dur [String] The time, in seconds.
+	*
+	* 	@return [Boolean, Fixnum] True or false, nil if error.
+	*/
 	rb_define_method(Cache, "stale", method_stale, 1);
+	/*
+	* Clear the cache.
+	* @note On failure, raises a ruby exception.
+	*
+	* @return 0 on success, negative value on error.
+	*/
 	rb_define_method(Cache, "purge", method_purge, 0);
-
 }
 
 // Returns a pointer to the cache file
@@ -81,6 +114,7 @@ VALUE method_stale(VALUE self, VALUE dur) {
 		return Qfalse;
 	}
 }
+
 
 VALUE method_purge(VALUE self) {
 	FILE* cache = open_cache("w");

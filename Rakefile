@@ -1,6 +1,7 @@
 require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 require 'rake/extensiontask'
+require 'yard'
 
 RSpec::Core::RakeTask.new(:spec) do
   %x{rake compile}
@@ -11,3 +12,8 @@ Rake::ExtensionTask.new "cache" do |ext|
 end
 
 task :default => :spec
+
+YARD::Rake::YardocTask.new do |t|
+ t.files   = ['lib/**/*.rb', 'ext/**/*.c']   # optional
+ t.stats_options = ['--list-undoc']         # optional
+end

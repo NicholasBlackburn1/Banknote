@@ -3,16 +3,23 @@ require 'json'
 
 module Cache
 
+  # Lookup the rate of a given currency in the cache
+  #
+  # @param iso [String] The string ISO code of the currency
+  # @return [String, nil] The exchange rate, nil if the currency is not in the cache
   def rate(iso)
     begin
-      cache = parse()
+      cache = get_hash()
     rescue
       return nil
     end
     return cache[iso]
   end
 
-  def parse
+  # Get data from the cache in the form of a hash.
+  #
+  # @return [String, nil] The hash of data from the cache.
+  def get_hash
     begin
       cache_data = Cache.read()
     rescue
