@@ -81,6 +81,13 @@ VALUE method_read(VALUE self) {
 	char *buffer;
 	fseek(cache, 0L, SEEK_END);
 	long cache_size = ftell(cache);
+	printf(" %ld ", cache_size);
+
+	if (cache_size > MAX_CACHE_BYTES) {
+		method_purge(self);
+		printf(" FULL %ld > %i ", cache_size, MAX_CACHE_BYTES);
+	}
+
 	rewind(cache);
 
 	buffer = (char*)calloc(cache_size, sizeof(char));
@@ -114,7 +121,6 @@ VALUE method_stale(VALUE self, VALUE dur) {
 		return Qfalse;
 	}
 }
-
 
 VALUE method_purge(VALUE self) {
 	FILE* cache = open_cache("w");

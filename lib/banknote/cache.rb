@@ -8,12 +8,10 @@ module Cache
   # @param iso [String] The string ISO code of the currency
   # @return [String, nil] The exchange rate, nil if the currency is not in the cache
   def rate(from, to)
-    begin
-      cache = get_hash()
-    rescue
-      return nil
-    end
+    cache = get_hash()
     return cache["#{from}>#{to}"]
+  rescue
+    return nil
   end
 
   # Append an entry to the cache.
@@ -49,6 +47,12 @@ module Cache
     end
     json_string = "{#{match[1]}}"
     return JSON.parse(json_string)
+  end
+
+  def is_outdated?
+    seconds_in_day = 86400
+    true if Cache.stale(seconds_in_day)
+    false
   end
 
 end

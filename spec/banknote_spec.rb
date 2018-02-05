@@ -4,10 +4,6 @@ RSpec.describe Banknote do
     expect(Banknote::VERSION).not_to be nil
   end
 
-  it "requires currency class" do
-    expect(Banknote::Currency.new).not_to be nil
-  end
-
   it "writes to a cache file" do
     expect(Cache.write("Cache file written.")).to be 0
   end
@@ -38,7 +34,7 @@ RSpec.describe Banknote do
   end
 
   it "stores a new value in the cache" do
-    expect(Cache.write('{"USD>GBP": 1}')).to be 0
+    expect(Cache.store("USD", "GBP", 1)).not_to be nil
     expect(Cache.rate("USD", "GBP")).to eq(1)
     expect(Cache.store("USD", "EUR", 1.2)).not_to be nil
     expect(Cache.rate("USD", "EUR")).to eq(1.2)
@@ -47,6 +43,18 @@ RSpec.describe Banknote do
   it "stores to an empty cache" do
     expect(Cache.store("USD", "JPY", 1.2)).not_to be nil
     expect(Cache.rate("USD", "JPY")).to eq(1.2)
+  end
+
+  it "overwrites an entry" do
+    expect(Cache.store("USD", "JPY", 1.2)).not_to be nil
+    expect(Cache.rate("USD", "JPY")).to eq(1.2)
+    expect(Cache.store("USD", "JPY", 1.3)).not_to be nil
+    expect(Cache.rate("USD", "JPY")).to eq(1.3)
+  end
+
+  it "checks valid ISO" do
+    expect(Banknote::Symbol.is_valid("USD")).to be true
+    expect(Banknote::Symbol.is_valid("nope")).to be false
   end
 
   after :each do

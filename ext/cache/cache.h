@@ -9,8 +9,7 @@
 #define MEMORY_ERROR 4
 #define TIMECODE_ERROR 5
 
-#define MAX_KEEP_SECONDS 1
-
+#define MAX_CACHE_BYTES 1048576
 
 void Init_cache();
 
