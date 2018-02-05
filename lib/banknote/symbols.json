@@ -1,0 +1,12 @@
+{
+  "USD" : {
+    "symbol": "$",
+    "prefix": true,
+    "decimal_seperator": "."
+  },
+  "GBP" : {
+    "symbol": "£",
+    "prefix": true,
+    "decimal_seperator": "."
+  }
+}
